@@ -1,0 +1,23 @@
+# Gradle
+.gradle/
+
+# Maven
+target/
+
+# Git
+.git
+.gitignore
+
+# IDEs
+*.iml
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# Secrets
+.env

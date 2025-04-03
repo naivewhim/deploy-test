@@ -1,0 +1,23 @@
+# === Java & Gradle ===
+/build/
+/.gradle/
+*.class
+*.jar
+*.war
+*.log
+
+# === IntelliJ IDEA ===
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# === OS ===
+.DS_Store
+Thumbs.db
+
+# === Docker ===
+*.tar
+*.img
+docker-compose.override.yml

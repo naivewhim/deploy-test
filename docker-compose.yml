@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  a-service:
+    build: ./a-service
+    ports:
+      - "5000:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+  b-service:
+    build: ./b-service
+    ports:
+      - "5001:8082"

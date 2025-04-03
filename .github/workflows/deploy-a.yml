@@ -1,0 +1,43 @@
+name: Deploy A Service to EB
+
+on:
+  push:
+    paths:
+      - 'a-service/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+
+      - name: Build JAR
+        working-directory: a-service
+        run: ./gradlew clean build
+
+      - name: Create ZIP for EB
+        run: |
+          mkdir bundle
+          cp a-service/Dockerfile bundle/
+          cp a-service/build/libs/*.jar bundle/app.jar
+          cp a-service/src/main/resources/application-eb.properties bundle/application.properties
+          zip -r a-service.zip bundle/
+
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          # GitHub Repository > Settings > Secrets > Actions 에서 AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY 등록
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: a-service-app
+          environment_name: a-service-env
+          version_label: a-${{ github.sha }}
+          region: us-west-2
+          deployment_package: a-service.zip

@@ -1,0 +1,42 @@
+name: Deploy B Service to EB
+
+on:
+  push:
+    paths:
+      - 'b-service/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+
+      - name: Build JAR
+        working-directory: b-service
+        run: ./gradlew clean build
+
+      - name: Create ZIP for EB
+        run: |
+          mkdir bundle
+          cp b-service/Dockerfile bundle/
+          cp b-service/build/libs/*.jar bundle/app.jar
+          cp b-service/src/main/resources/application-eb.properties bundle/application.properties
+          zip -r b-service.zip bundle/
+
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: b-service-app          # ← EB 앱 이름
+          environment_name: b-service-env          # ← EB 환경 이름
+          version_label: b-${{ github.sha }}
+          region: us-west-2                        # ← 본인 AWS 리전에 맞게 수정
+          deployment_package: b-service.zip

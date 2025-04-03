@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  a-service:
+    build: .
+    ports:
+      - "5000:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=eb
