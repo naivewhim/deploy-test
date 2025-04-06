@@ -1,6 +1,7 @@
 name: Deploy B Service to EB
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'b-service/**'
