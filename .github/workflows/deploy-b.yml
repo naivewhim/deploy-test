@@ -37,8 +37,8 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: b-service-app          # ← EB 앱 이름
-          environment_name: b-service-env          # ← EB 환경 이름
+          application_name: b-service-app
+          environment_name: b-service-eb
           version_label: b-${{ github.sha }}
-          region: us-west-2                        # ← 본인 AWS 리전에 맞게 수정
+          region: ap-northeast-2
           deployment_package: b-service.zip
