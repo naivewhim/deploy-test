@@ -45,3 +45,4 @@ jobs:
           version_label: a-${{ github.sha }}
           region: ap-northeast-2
           deployment_package: a-service.zip
+          use_existing_version_if_available: true
