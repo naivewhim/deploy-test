@@ -26,11 +26,10 @@ jobs:
 
       - name: Create ZIP for EB
         run: |
-          mkdir bundle
-          cp b-service/Dockerfile bundle/
-          cp b-service/build/libs/*.jar bundle/app.jar
-          cp b-service/src/main/resources/application-eb.properties bundle/application.properties
-          zip -r b-service.zip bundle/
+          cp b-service/Dockerfile .
+          cp b-service/build/libs/*.jar app.jar
+          cp b-service/src/main/resources/application-eb.properties application.properties
+          zip b-service.zip Dockerfile app.jar application.properties
 
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v20
