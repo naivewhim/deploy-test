@@ -31,6 +31,9 @@ jobs:
           cp a-service/src/main/resources/application-eb.properties application.properties
           zip a-service.zip Dockerfile app.jar application.properties
 
+      - name: List contents of a-service.zip
+        run: unzip -l a-service.zip
+
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v20
         with:
