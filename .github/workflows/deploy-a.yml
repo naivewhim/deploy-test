@@ -32,6 +32,9 @@ jobs:
           cp a-service/src/main/resources/application-eb.properties bundle/application.properties
           zip -r a-service.zip bundle/
 
+      - name: List contents of a-service.zip
+        run: unzip -l a-service.zip
+
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v20
         with:
