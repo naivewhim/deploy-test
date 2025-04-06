@@ -38,7 +38,7 @@ jobs:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: b-service-app
-          environment_name: b-service-eb
+          environment_name: b-service-app-eb
           version_label: b-${{ github.sha }}
           region: ap-northeast-2
           deployment_package: b-service.zip
