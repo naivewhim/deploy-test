@@ -8,6 +8,6 @@ public class BServiceController {
 
     @GetMapping("/")
     public String hello() {
-        return "I am Service B";
+        return "I am Service B. v2.";
     }
 }
